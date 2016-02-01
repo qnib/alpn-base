@@ -1,4 +1,5 @@
 FROM alpine:edge
+## Inspired by https://github.com/iron-io/dockers
 MAINTAINER "Christian Kniep <christian@qnib.org>"
 
 RUN apk update && apk upgrade
