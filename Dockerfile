@@ -1,4 +1,4 @@
-FROM alpine
+FROM alpine:edge
 MAINTAINER "Christian Kniep <christian@qnib.org>"
 
 RUN apk update && apk upgrade
