@@ -2,10 +2,9 @@ FROM alpine:3.4
 ## Inspired by https://github.com/iron-io/dockers
 MAINTAINER "Christian Kniep <christian@qnib.org>"
 
-ENV DUMB_INIT_VER=1.1.1
-RUN apk update && apk upgrade && \
-    apk add wget ca-certificates bash && \
-    wget -qO /usr/local/bin/dumb-init https://github.com/Yelp/dumb-init/releases/download/v${DUMB_INIT_VER}/dumb-init_${DUMB_INIT_VER}_amd64 && \
-    chmod +x /usr/local/bin/dumb-init && \
-    apk del wget && \
-    rm -rf /var/cache/apk/*
+RUN apk --no-cache add ca-certificates bash wget \
+ && wget -qO /usr/local/bin/go-github https://github.com/qnib/go-github/releases/download/0.2.2/go-github_0.2.2_MuslLinux \
+ && chmod +x /usr/local/bin/go-github \
+ && echo "# download: $(/usr/local/bin/go-github rLatestUrl --ghorg Yelp --ghrepo dumb-init --regex '.*_amd64$' |head -n1)" \
+ && wget -qO /usr/local/bin/dumb-init $(/usr/local/bin/go-github rLatestUrl --ghorg Yelp --ghrepo dumb-init --regex ".*_amd64$" |head -n1) \
+ && chmod +x /usr/local/bin/dumb-init
